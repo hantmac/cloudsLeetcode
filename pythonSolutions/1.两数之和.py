@@ -37,13 +37,33 @@ class Solution(object):
         :type target: int
         :rtype: List[int]
         """
-        tmp = []
-        size = len(nums)
-        for i in range(size-1):
-            for j in range(i+1, size):
-                if nums[i] + nums[j] == target:
-                    tmp.append(i)
-                    tmp.append(j)
-                    return tmp
-
+        # 暴力解法
+        # tmp = []
+        # size = len(nums)
+        # for i in range(size-1):
+        #     for j in range(i+1, size):
+        #         if nums[i] + nums[j] == target:
+        #             tmp.append(i)
+        #             tmp.append(j)
+        #             return tmp
+        # 哈希表, 两遍哈希
+        # def get_keys(d, value):
+        #     for k, v in d.items():
+        #         if v == value:
+        #             return k
+        # import collections
+        # d = collections.defaultdict(int)
+        # for i, v in enumerate(nums):
+        #     d[i] = v
+        # for k , v in d.items():
+        #     component = target - v
+        #     if component in nums and get_keys(d,component)!=k:
+        #         return [k,get_keys(d,component)]
+        # 一遍哈希，在生成map的时候顺便检查下
+        d = {}
+        for i in range(len(nums)):
+            if nums[i] in d:
+                return [d[nums[i]],i]
+            d[target-nums[i]] = i
+        return False
 # @lc code=end
